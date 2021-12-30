@@ -22,9 +22,9 @@ class QFunction(chainer.Chain):
 
 env        = gym.make('CartPole-v0')                                               # 倒立振子
 steps      = 200                                                                   # 1試行のstep数
-n_episodes = 1000                                                                   # 総試行回数def400
+n_episodes = 10                                                                   # 総試行回数def400
 gamma      = 0.99
-loop = 10
+loop = 2
 history = [[[0 for j in range(1)]for i in range(loop)]for i in range(6)]
 ave = [[0 for i in range(1)]for j in range(6)]
 episodehistory = [[[0 for j in range(1)]for i in range(loop)]for i in range(6)]
@@ -50,7 +50,7 @@ for u in unit:
                     (q_func, opt, ex_rep, gamma, explorer, replay_start_size=500, update_interval=1, target_update_interval=100, phi=phi) # 深層強化学習
         sumsum = 0
         total_step = 0
-        print(ex_rep)
+        #print(ex_rep)
         for episode in range(n_episodes):                                                  # エピソード数のループ
             observ      = env.reset()
             done        = False
@@ -75,7 +75,9 @@ for u in unit:
         del phi
         del agent
     count += 1
-
+for i in range (6):
+    for j in range(loop):
+        print(i+1,"種類目",j,"loop",history[i][j][episode+1])
 total = 0
 episode_total = 0
 count = 0

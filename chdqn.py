@@ -22,7 +22,7 @@ class QFunction(chainer.Chain):
 
 env        = gym.make('CartPole-v0')                                               # 倒立振子
 steps      = 200                                                                   # 1試行のstep数
-n_episodes = 5                                                                   # 総試行回数def400
+n_episodes = 1000                                                                   # 総試行回数def400
 gamma      = 0.99
 loop = 10
 history = [[[0 for j in range(1)]for i in range(loop)]for i in range(6)]
@@ -38,6 +38,7 @@ for u in unit:
         # DQN設定
         print('unit:',u, 'loop:',i+1)
         q_func     = QFunction(env.observation_space.shape[0], u, env.action_space.n)     # 入力数4, 中間層def50, 出力層2
+        #q_func.to_gpu(0)
         print('初期化')
         opt        = chainer.optimizers.Adam(eps=1e-2)                                     # 最適化関数
         opt.setup(q_func)
@@ -64,7 +65,7 @@ for u in unit:
             
             sumsum = sumsum + reward_sum
             agent.stop_episode_and_train(observ, reward, done)                             # DQNの重み更新
-            print('episode:', episode, 'reward_sum:', reward_sum)
+            if episode % 10 == 0:print('episode:', episode, 'reward_sum:', reward_sum)
             history[count][i].append(sumsum)
             episodehistory[count][i].append(reward_sum)
         del q_func
@@ -80,6 +81,8 @@ episode_total = 0
 count = 0
 for count in range(6):
     for i in range(n_episodes):
+        total = 0
+        episode_total = 0
         for j in range(loop):
             total += history[count][j][i]
             episode_total += episodehistory[count][j][i]
@@ -100,7 +103,7 @@ for c in color:
         
     count += 1
 
-"""ax1.plot(ave[0],label='8',color='red',linewidth=5.0)
+ax1.plot(ave[0],label='8',color='red',linewidth=5.0)
 ax1.plot(ave[1],label='16',color='blue',linewidth=5.0)
 ax1.plot(ave[2],label='32',color='yellow',linewidth=5.0)
 ax1.plot(ave[3],label='64',color='green',linewidth=5.0)
@@ -111,7 +114,7 @@ ax2.plot(episodeave[1],label='16',color='blue',linewidth=5.0)
 ax2.plot(episodeave[2],label='32',color='yellow',linewidth=5.0)
 ax2.plot(episodeave[3],label='64',color='green',linewidth=5.0)
 ax2.plot(episodeave[4],label='128',color='black',linewidth=5.0)
-ax2.plot(episodeave[5],label='256',color='brown',linewidth=5.0)"""
+ax2.plot(episodeave[5],label='256',color='brown',linewidth=5.0)
 """ax1.ylabel('total_step')
 ax1.xlabel('episode')
 ax1.title('DeepQNetwork', loc='center')"""

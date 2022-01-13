@@ -94,36 +94,37 @@ for count in range(6):
         episodeave[count].append(episode_total)
 
 Figure = plt.figure() #全体のグラフを作成
-ax1 = Figure.add_subplot(2,1,1) #1つ目のAxを作成
-ax2 = Figure.add_subplot(2,1,2) #2つ目のAxを作成
+#ax1 = Figure.add_subplot(2,1,1) #1つ目のAxを作成
+#ax2 = Figure.add_subplot(2,1,2) #2つ目のAxを作成
 
 count = 0
-for c in color:
+"""for c in color:
     for i in range(loop):
         ax1.plot(history[count][i],marker='.',linestyle='None',color=c,alpha=0.4)
         ax2.plot(episodehistory[count][i],marker='.',linestyle='None',color=c,alpha=0.4)
         
-    count += 1
+    count += 1"""
 
-ax1.plot(ave[0],label='8',color='red',linewidth=5.0)
+"""ax1.plot(ave[0],label='8',color='red',linewidth=5.0)
 ax1.plot(ave[1],label='16',color='blue',linewidth=5.0)
 ax1.plot(ave[2],label='32',color='yellow',linewidth=5.0)
 ax1.plot(ave[3],label='64',color='green',linewidth=5.0)
 ax1.plot(ave[4],label='128',color='black',linewidth=5.0)
-ax1.plot(ave[5],label='256',color='brown',linewidth=5.0)
-ax2.plot(episodeave[0],label='8',color='red',linewidth=5.0)
-ax2.plot(episodeave[1],label='16',color='blue',linewidth=5.0)
-ax2.plot(episodeave[2],label='32',color='yellow',linewidth=5.0)
-ax2.plot(episodeave[3],label='64',color='green',linewidth=5.0)
-ax2.plot(episodeave[4],label='128',color='black',linewidth=5.0)
-ax2.plot(episodeave[5],label='256',color='brown',linewidth=5.0)
+ax1.plot(ave[5],label='256',color='brown',linewidth=5.0)"""
+
+plt.plot(episodeave[0],label='8',color='red',linewidth=3.0)
+plt.plot(episodeave[1],label='16',color='blue',linewidth=3.0)
+plt.plot(episodeave[2],label='32',color='yellow',linewidth=3.0)
+plt.plot(episodeave[3],label='64',color='green',linewidth=3.0)
+plt.plot(episodeave[4],label='128',color='black',linewidth=3.0)
+plt.plot(episodeave[5],label='256',color='brown',linewidth=3.0)
 """ax1.ylabel('total_step')
 ax1.xlabel('episode')
 ax1.title('DeepQNetwork', loc='center')"""
-ax1.legend(loc=0)
+#ax1.legend(loc=0)
 """ax2.ylabel('step')
 ax2.xlabel('episode')
 ax2.title('DeepQNetwork', loc='center')"""
-ax2.legend(loc=0)
+plt.legend(loc=0)
 plt.show()
 
